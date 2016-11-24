@@ -1,4 +1,3 @@
-
 function renderCard() {
   // cards.forEach(function(card)
   $("#card-wall").prepend(createCard())
@@ -21,7 +20,6 @@ function createCard() {
     </article>`
     return html;
   }
-
 
 $(() => {
   $.ajax({method: "GET", url: "/api/users"}).done((users) => {
