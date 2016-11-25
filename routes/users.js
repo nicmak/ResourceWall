@@ -21,8 +21,6 @@ module.exports = (knex) => {
   });
 
   router.post("/cards", (req,res) => {
-    console.log("data:", req.data);
-    console.log("params:", req.params);
     console.log("body:", req.body);
     res.send(req.body);
     knex('cards')
@@ -34,10 +32,10 @@ module.exports = (knex) => {
         user_id: null //foreign key!
     })
     .then(function(rows) {
-      console.log("GREAT");
+      console.log("GREAT SUCCESS!!");
     })
     .catch(function(error){
-      console.log(error,"It's not working")
+      console.log(error,"CATCH, MOTHAFUCKAAAA")
     })
 
   });

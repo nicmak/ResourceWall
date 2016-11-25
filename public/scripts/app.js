@@ -1,9 +1,9 @@
 
-function createCard(cards) {
-  const urlText = cards.body.url;
-  const categoriesText = $('#categories-input').val();
-  const titleText = $('#title-input').val();
-  const notesText = $('#notes-input').val();
+function createCard(cardData) {
+  const urlText = cardData.url;
+  const categoriesText = cardData.categories;
+  const titleText = cardData.title;
+  const notesText = cardData.notes;
 
   let html = `<article class="card">
     <h1> CARD~~~ </h1>
@@ -18,12 +18,10 @@ function createCard(cards) {
 }
 
 function renderCards(cards) {
-  cards.forEach(card => {
-    $("#card-wall").prepend(createCard())
-  });
+  // cards.forEach(card => {
+    $("#card-wall").prepend(createCard(cards))
+  // });
 };
-
-
 
 
 $(() => {
@@ -48,7 +46,8 @@ $(() => {
     })
     .done(function(response) {
       $(".result").append(JSON.stringify(response));
-      // $('textarea').val("");
+      renderCards(response);
+      $('textarea').val("");
       // loadCards();
     });
    })
