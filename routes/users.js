@@ -25,8 +25,21 @@ module.exports = (knex) => {
     console.log("params:", req.params);
     console.log("body:", req.body);
     res.send(req.body);
-    knex
-      .
+    knex('cards')
+      .insert({
+        url: req.body.url,
+        // categories: req.body.categories,
+        title: req.body.title,
+        notes: req.body.notes,
+        user_id: null //foreign key!
+    })
+    .then(function(rows) {
+      console.log("GREAT");
+    })
+    .catch(function(error){
+      console.log(error,"It's not working")
+    })
+
   });
     // var results = [
     //   {

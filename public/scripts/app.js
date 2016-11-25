@@ -1,27 +1,30 @@
 
-// function createCard(cards) {
-//   const urlText = $('#url-input').val();
-//   const categoriesText = $('#categories-input').val();
-//   const titleText = $('#title-input').val();
-//   const notesText = $('#notes-input').val();
-//
-//   let html = `<article class="card">
-//     <h1> CARD~~~ </h1>
-//     <p> URL: ${urlText} </p>
-//     <p> Categories: ${categoriesText} </p>
-//     <p> Title: ${titleText} <p>
-//     <p> Notes: ${notesText} </p>
-//     <p> Likes and Ratings~~~~ </p>
-//     <p> Comments~~~~ </p>
-//     </article>`
-//     return html;
-// }
+function createCard(cards) {
+  const urlText = cards.body.url;
+  const categoriesText = $('#categories-input').val();
+  const titleText = $('#title-input').val();
+  const notesText = $('#notes-input').val();
 
-// function renderCards(cards) {
-//   cards.forEach((card => {
-//     $("#card-wall").prepend(createCard())
-//   });
-// };
+  let html = `<article class="card">
+    <h1> CARD~~~ </h1>
+    <p> URL: ${urlText} </p>
+    <p> Categories: ${categoriesText} </p>
+    <p> Title: ${titleText} <p>
+    <p> Notes: ${notesText} </p>
+    <p> Likes and Ratings~~~~ </p>
+    <p> Comments~~~~ </p>
+    </article>`
+    return html;
+}
+
+function renderCards(cards) {
+  cards.forEach(card => {
+    $("#card-wall").prepend(createCard())
+  });
+};
+
+
+
 
 $(() => {
   $("#add-url-btn").click(function(event) {
@@ -38,7 +41,9 @@ $(() => {
       method:"POST",
       data: {
         url: $("#url-input").val(),
-        categories: $('#categories-input').val()
+        categories: $("#categories-input").val(),
+        title: $("#title-input").val(),
+        notes: $("#notes-input").val()
       }
     })
     .done(function(response) {
@@ -48,7 +53,7 @@ $(() => {
     });
    })
  })
-// ---------------------------------------------------
+/* - - - - - - - - - - - - - - - - - - - - - - -*/
 function loadCards() {
   $.ajax({
     url:"/cards",
