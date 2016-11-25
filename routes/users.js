@@ -25,6 +25,8 @@ module.exports = (knex) => {
     console.log("params:", req.params);
     console.log("body:", req.body);
     res.send(req.body);
+    knex
+      .
   });
     // var results = [
     //   {
