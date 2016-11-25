@@ -14,6 +14,18 @@ module.exports = (knex) => {
         res.json(results);
     });
 
+  });
+
+  router.get("/cards", (req,res) => {
+    res.send("blah");
+  });
+
+  router.post("/cards", (req,res) => {
+    console.log("data:", req.data);
+    console.log("params:", req.params);
+    console.log("body:", req.body);
+    res.send(req.body);
+  });
     // var results = [
     //   {
     //     id: ,
@@ -24,7 +36,6 @@ module.exports = (knex) => {
     //   }
     // ]
 
-  });
 
   return router;
 }
