@@ -37,18 +37,7 @@ module.exports = (knex) => {
     .catch(function(error){
       console.log(error,"CATCH, MOTHAFUCKAAAA")
     })
-
   });
-    // var results = [
-    //   {
-    //     id: ,
-    //     url: ,
-    //     categories: [],
-    //     title: ,
-    //     notes:
-    //   }
-    // ]
-
 
   return router;
 }
