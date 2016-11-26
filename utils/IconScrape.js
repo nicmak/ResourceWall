@@ -2,9 +2,11 @@
 
 const request = require('request');
 const fs = require('fs');
+const args = process.argv[2]
+const webPage = ;
 
-let url = process.argv[2];
-
-request(url).pipe(fs.createWriteStream('../tmp/HTML.txt'));
+request({
+  url: args
+}).pipe(fs.createWriteStream(`../tmp/${webPage}.html`));
 //This will request the url typed into terminal,
 //and insert the HTML text into tmp file
