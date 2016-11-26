@@ -25,15 +25,13 @@ function renderCards(cards) {
 
 
 $(() => {
-  $("#add-url-btn").click(function(event) {
+    $("#add-url-btn").click(function(event) {
     $("#url-input").focus();
     $("#popup").slideToggle();
   })
-
 /* When you click submit, this will send the data to the server */
   $("#add-url-form").on('submit', function(event) {
     event.preventDefault();
-
     $.ajax({
       url:"/api/users/cards",
       method:"POST",
@@ -51,10 +49,8 @@ $(() => {
       // loadCards();
     });
    })
-
-   $("#registation-form").on('submit', function(event) {
+   $("#registration-form").on('submit', function(event) {
      event.preventDefault();
-
      $.ajax({
        url:"/api/users/registration",
        method:"POST",
@@ -67,14 +63,8 @@ $(() => {
      })
      .done(function(response) {
        $('#registration-form').val("");
-
-
-       // loadCards();
      });
     })
-
-
-
  })
 /* - - - - - - - - - - - - - - - - - - - - - - -*/
 function loadCards() {

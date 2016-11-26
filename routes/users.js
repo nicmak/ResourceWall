@@ -20,24 +20,22 @@ module.exports = (knex) => {
     res.send("blah");
   });
 
+//This will accept post requests that are /api/users + /cards
+//And then will execute the following code...
   router.post("/cards", (req,res) => {
-    console.log("body:", req.body);
+    console.log("data:", req.data);
+    console.log("params:", req.params);
+    console.log("body:", req.body); //This console.log would be on your terminal
     res.send(req.body);
-    knex('cards')
-      .insert({
-        url: req.body.url,
-        // categories: req.body.categories,
-        title: req.body.title,
-        notes: req.body.notes,
-        user_id: null //foreign key!
-    })
-    .then(function(rows) {
-      console.log("GREAT SUCCESS!!");
-    })
-    .catch(function(error){
-      console.log(error,"CATCH, MOTHAFUCKAAAA")
-    })
-  });
+    knex
+     ('cards')
+     .insert({
+       url: req.body.url,
+       title:"Title",
+       notes:"Notes",
+       user_id:1})
+       
 
+  });
   return router;
 }
