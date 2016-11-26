@@ -51,6 +51,30 @@ $(() => {
       // loadCards();
     });
    })
+
+   $("#registation-form").on('submit', function(event) {
+     event.preventDefault();
+
+     $.ajax({
+       url:"/api/users/registration",
+       method:"POST",
+       data: {
+         firstName: $("#first-name").val(),
+         lastName: $("#last-name").val(),
+         email: $("#email-registration").val(),
+         password: $("#password-registration").val()
+       }
+     })
+     .done(function(response) {
+       $('#registration-form').val("");
+
+
+       // loadCards();
+     });
+    })
+
+
+
  })
 /* - - - - - - - - - - - - - - - - - - - - - - -*/
 function loadCards() {
