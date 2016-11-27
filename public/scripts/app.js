@@ -11,7 +11,14 @@ function createCard(cardData) {
     <p> Categories: ${categoriesText} </p>
     <p> Title: ${titleText} <p>
     <p> Notes: ${notesText} </p>
-    <p> Likes and Ratings~~~~ </p>
+    <p> Likes
+      <button id="like-card" type="like-value" value="like-value">LIKE</button>
+    </p>
+    <p> Ratings
+      <div class="rating">
+        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+      </div>
+    </p>
     <p> Comments~~~~ </p>
     </article>`
     return html;
@@ -40,9 +47,40 @@ $(document).ready(function() {
     $("#url-input").focus();
     $("#popup").slideToggle();
   })
+
+  $("#like-card").on("like-value", function(event) {
+    event.preventDefault();
+    console.log("app.js was liked card")
+    $.ajax({
+      url:"api/users/cards",
+      method:"POST"
+    });
+  });
+
+  $("#login-form").on("submit", function(event) {
+    console.log("event",event);
+    let email = ($("#email-login").val());
+    let password=($("#password-login").val());
+    event.preventDefault();
+    $.ajax({
+      url:"api/users/lo",
+      method:"POST",
+      data: {
+        email: email,
+        password: password
+      }
+    })
+    .done(function (response) {
+      console.log("Congrarts you logged in")
+    })
+
+  })
+
+
 /* When you click submit, this will send the data to the server */
   $("#add-url-form").on('submit', function(event) {
     event.preventDefault();
+    console.log("Card post request successful")
     $.ajax({
       url:"/api/users/cards",
       method:"POST",
@@ -60,6 +98,7 @@ $(document).ready(function() {
    })
 
    $("#registration-form").on('submit', function(event) {
+
      event.preventDefault();
      $.ajax({
        url:"/api/users/registration",
@@ -73,6 +112,8 @@ $(document).ready(function() {
      })
      .done(function(response) {
        $('#registration-form').val("");
+       window.location.href="/user";
+
      });
     })
 
