@@ -49,7 +49,9 @@ module.exports = {
         responseObject["categories"] = card["categories"];
         responseObject["notes"] = descriptionOrNote;
 
-        knex('cards').insert({
+        knex('cards')
+        .returning("id")
+        .insert({
           url: responseObject.url,
           title: titleOrUsersTitle,
           notes: descriptionOrNote,
