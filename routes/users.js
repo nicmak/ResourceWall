@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 const bodyParser  = require("body-parser");
-const iconScrape = require("../utils/iconScrape")
+const iconScrape = require("../utils/IconScrape")
 
 module.exports = (knex) => {
 
@@ -25,27 +25,24 @@ router.post("/login", (req,res)=>{
 
 router.post("/cards", (req,res) => {
   console.log("MAKING CARD");
-  console.log("req.session.user_id", req.session.user_id)
-    iconScrape.scrapeStuff(req);
-    knex
-    .select("*")
-    .from("cards")
-    //get card_id of card we just created for query
-    .where("user_id", req.session.user_id)
-    .then.
-    res.send(responseObject);
+  console.log("req.session.user_id", req.session.user_id);
+  let response = iconScrape.scrapeStuff(req);
+  console.log('hello')
+  // knex.select("*").from("cards")  //get card_id of card we just created for query
+  // .where("user_id", req.session.user_id)
+  // .then(res.send(responseObject));
 
-  knex('categories')
-    .insert({
-      category_name: req.body.categories,
-      card_id: null // knex('cards').select("id") //FOREIGN KEYS!
-  })
-  .then(function(response) {
-    console.log("GREAT CATEGORY !!");
-  })
-  .catch(function(error){
-    console.log(error,"CATEGORY, MOTHAFUCKAAAA")
-  })
+  // knex('categories')
+  //   .insert({
+  //     category_name: req.body.categories,
+  //     card_id: null // knex('cards').select("id") //FOREIGN KEYS!
+  // })
+  // .then(function(response) {
+  //   console.log("GREAT CATEGORY !!");
+  // })
+  // .catch(function(error){
+  //   console.log(error,"CATEGORY, MOTHAFUCKAAAA")
+  // })
 
   // knex('cards_categories')
   //   .insert({

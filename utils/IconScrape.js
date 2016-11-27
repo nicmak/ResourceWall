@@ -26,10 +26,10 @@ module.exports = {
         htmlStuff = body;
         let $ = cheerio.load(htmlStuff);
         /// We can query till our hearts content
-        console.log("~~~~~~~~~~~~~~~");
-        console.log("title:", $('title').text()); //.text() gets rid of the HTML tags
-        console.log("icon:", $('link[rel="shortcut icon"]').attr('href'));
-        console.log("description:", $('meta[name=description]').attr('content'));
+        // console.log("~~~~~~~~~~~~~~~");
+        // console.log("title:", $('title').text()); //.text() gets rid of the HTML tags
+        // console.log("icon:", $('link[rel="shortcut icon"]').attr('href'));
+        // console.log("description:", $('meta[name=description]').attr('content'));
 
         //grab the appropriate data & write the knex commands to insert it into the DB
 
