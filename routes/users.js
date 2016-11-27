@@ -25,12 +25,43 @@ router.post("/login", (req,res)=>{
 
 router.post("/cards", (req,res) => {
   console.log("MAKING CARD");
+<<<<<<< HEAD
   console.log("req.session.user_id", req.session.user_id);
   let response = iconScrape.scrapeStuff(req);
   console.log('hello')
   // knex.select("*").from("cards")  //get card_id of card we just created for query
   // .where("user_id", req.session.user_id)
   // .then(res.send(responseObject));
+=======
+  console.log("REQUEST BODY", req.body)
+
+    iconScrape.scrapeStuff(req.body, req.session.user_id, (err, result) => {
+      if (err) {
+        console.log(err)
+        return res.json({err: err}).status(500)
+      }
+      console.log("IconScraping done! Sending finishing response~~~");
+      console.log(result)
+
+      knex('cards')
+      .select("url","title","notes")   //get card_id of card we just created for query
+      .where({id: result[0]})
+      .then(function(card){
+        console.log(card);
+
+      let newCard = {
+        url:card[0].url,
+        title:card[0].title,
+        notes:card[0].notes,
+        categories:null
+      }
+      res.json(newCard)
+      })
+  });
+
+    //TODO
+    // scrapeStuff function takes req.body, creates card instance in database, is supposed use it to return responseObject to fill view; But is returning empty obj.
+>>>>>>> 2f474e23222f916d5ed5cf40e5d41615df1b926f
 
   // knex('categories')
   //   .insert({
@@ -96,6 +127,7 @@ router.post("/cards", (req,res) => {
   //   })
 
   //CAN I INCLUDE ANOTHER KNEX STATEMENT UNDERNEATH THAT WOULD RUN STIL;
+
 })
 
 router.post("/registration", (req, res) => {
@@ -111,8 +143,8 @@ router.post("/registration", (req, res) => {
       password: req.body.password
     })
     .then(function(user) {
-      req.session.user_id = user[0]
-      console.log("req is here",req.session.user_id);
+      req.session.user_id = user[0];
+      console.log("req is here", req.session.user_id);
       console.log("GREAT Registration!!");
       console.log("Great cookie key assigned");
       res.redirect('/user')
