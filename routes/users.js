@@ -25,27 +25,38 @@ router.post("/login", (req,res)=>{
 
 router.post("/cards", (req,res) => {
   console.log("MAKING CARD");
-  console.log("req.session.user_id", req.session.user_id)
-    iconScrape.scrapeStuff(req);
-    knex
-    .select("*")
-    .from("cards")
-    //get card_id of card we just created for query
-    .where("user_id", req.session.user_id)
-    .then.
-    res.send(responseObject);
+  console.log("session ", req.session)  //right now the issue is that req.session.user_id is undefined...
+    iconScrape.scrapeStuff(req.body, req.session.user_id, (err, result) => {
+      if (err) {
+        console.log(err)
+        return res.json({err: err}).status(500)
+      }
+      console.log("IconScraping done! Sending finishing response~~~");
 
-  knex('categories')
-    .insert({
-      category_name: req.body.categories,
-      card_id: null // knex('cards').select("id") //FOREIGN KEYS!
-  })
-  .then(function(response) {
-    console.log("GREAT CATEGORY !!");
-  })
-  .catch(function(error){
-    console.log(error,"CATEGORY, MOTHAFUCKAAAA")
-  })
+      knex
+      .select("*")   //get card_id of card we just created for query
+      .from("cards")
+      .where("user_id", req.session.user_id)
+      .then(function(data){
+        console.log("Sent the response...!", data);
+        res.send(data);
+    })
+  });
+
+    //TODO
+    // scrapeStuff function takes req.body, creates card instance in database, is supposed use it to return responseObject to fill view; But is returning empty obj.
+
+  // knex('categories')
+  //   .insert({
+  //     category_name: req.body.categories,
+  //     card_id: null // knex('cards').select("id") //FOREIGN KEYS!
+  // })
+  // .then(function(response) {
+  //   console.log("GREAT CATEGORY !!");
+  // })
+  // .catch(function(error){
+  //   console.log(error,"CATEGORY, MOTHAFUCKAAAA")
+  // })
 
   // knex('cards_categories')
   //   .insert({
@@ -99,6 +110,7 @@ router.post("/cards", (req,res) => {
   //   })
 
   //CAN I INCLUDE ANOTHER KNEX STATEMENT UNDERNEATH THAT WOULD RUN STIL;
+
 })
 
 router.post("/registration", (req, res) => {
@@ -114,8 +126,8 @@ router.post("/registration", (req, res) => {
       password: req.body.password
     })
     .then(function(user) {
-      req.session.user_id = user[0]
-      console.log("req is here",req.session.user_id);
+      req.session.user_id = user[0];
+      console.log("req is here", req.session.user_id);
       console.log("GREAT Registration!!");
       console.log("Great cookie key assigned");
       res.redirect('/user')
