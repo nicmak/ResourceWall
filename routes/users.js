@@ -25,24 +25,75 @@ router.post("/login", (req,res)=>{
 
 router.post("/cards", (req,res) => {
   console.log("MAKING CARD");
-  console.log("session ", req.session)  //right now the issue is that req.session.user_id is undefined...
-  console.log("REQUEST BODY", req.body)
-    iconScrape.scrapeStuff(req.body, req.session.user_id, (err, result) => {
+  console.log(req.body);
+
+  iconScrape.scrapeStuff(req.body, req.session.user_id, (err, result) => {
       if (err) {
         console.log(err)
         return res.json({err: err}).status(500)
       }
-      console.log("IconScraping done! Sending finishing response~~~");
 
-      knex
-      .select("*")   //get card_id of card we just created for query
-      .from("cards")
-      .where("user_id", req.session.user_id)
-      .then(function(data){
-        console.log("Sent the response...!", data);
-        res.send(data);
+      console.log("IconScraping done! Sending finishing response~~~");
+      console.log(result)
+
+      knex('cards')
+      .select("url","title","notes")
+      .where({id: result[0]})
+      .then(function(card){
+        console.log(card);
+
+      let newCard = {
+        url:card[0].url,
+        title:card[0].title,
+        notes:card[0].notes,
+        categories:null
+      }
+      res.json(newCard)
+      });
+
+
     })
-  });
+
+
+
+
+
+
+
+
+  // knex("cards")
+  //   .returning("id")
+  //   .insert({
+  //     url: req.body.url,
+  //     title: req.body.categories,
+  //     notes: req.body.notes,
+  //     user_id: req.session.user_id
+  //   })
+  //   .then(function(card){
+  //     req.session.card_id=card[0]
+  //     console.log("Card Stored in DB")
+  //   })
+  //   .catch(function(error){
+  //     console.log(error,"Card not stored in DB")
+  //   })
+  // console.log("session ", req.session)  //right now the issue is that req.session.user_id is undefined...
+  // console.log("REQUEST BODY", req.body)
+  //   iconScrape.scrapeStuff(req.body, req.session.user_id, (err, result) => {
+  //     if (err) {
+  //       console.log(err)
+  //       return res.json({err: err}).status(500)
+  //     }
+  //     console.log("IconScraping done! Sending finishing response~~~");
+  //
+  //     knex
+  //     .select("*")   //get card_id of card we just created for query
+  //     .from("cards")
+  //     .where("user_id", req.session.user_id)
+  //     .then(function(data){
+  //       console.log("Sent the response...!", data);
+  //       res.send(data);
+  //   })
+  // });
 
     //TODO
     // scrapeStuff function takes req.body, creates card instance in database, is supposed use it to return responseObject to fill view; But is returning empty obj.

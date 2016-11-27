@@ -91,6 +91,7 @@ $(document).ready(function() {
       }
     })
     .done(function(response) {
+      console.log("App.js", response);
       renderCards(response);
       $('textarea').val("");
     });
