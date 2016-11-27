@@ -42,6 +42,7 @@ router.post("/cards", (req,res) => {
     console.log(error,"CARD, MOTHAFUCKAAAA")
   })
 
+  
   knex('categories')
     .insert({
       category_name: req.body.categories,

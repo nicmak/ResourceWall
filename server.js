@@ -28,6 +28,7 @@ app.use(cookieSession({
   maxAge: 60 * 60 * 1000 // 1 hour cookie life
 }))
 
+// The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
