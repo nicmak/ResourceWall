@@ -25,13 +25,13 @@ router.post("/cards", (req,res) => {
       title: req.body.title,
       notes: req.body.notes,
       user_id: null //foreign key!
-  })
-  .then(function(response) {
-    console.log("GREAT Card!!");
-  })
-  .catch(function(error){
-    console.log(error,"CARD, MOTHAFUCKAAAA")
-  })
+    })
+    .then(function(response) {
+      console.log("GREAT Card!!");
+    })
+    .catch(function(error){
+      console.log(error,"CARD, MOTHAFUCKAAAA")
+    })
   knex('categories')
     .insert({
       category_name: req.body.categories,
@@ -43,7 +43,6 @@ router.post("/cards", (req,res) => {
   .catch(function(error){
     console.log(error,"CATEGORY, MOTHAFUCKAAAA")
   })
-  //CAN I INCLUDE ANOTHER KNEX STATEMENT UNDERNEATH THAT WOULD RUN STIL;
 })
 
 router.post("/registration", (req, res) => {
