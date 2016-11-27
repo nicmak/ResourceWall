@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 const bodyParser  = require("body-parser");
-
+const iconScrape = require("../utils/iconScrape")
 
 module.exports = (knex) => {
 
@@ -23,25 +23,17 @@ router.post("/login", (req,res)=>{
 });
 
 
-
 router.post("/cards", (req,res) => {
   console.log("MAKING CARD");
-  console.log(req.session.user_id)
-  res.send(req.body);
-  knex('cards')
-    .insert({
-      url: req.body.url,
-      title: req.body.title,
-      notes: req.body.notes,
-      user_id: req.session.user_id //knex('users').select("id") //foreign key!
-  })
-  .then(function(response) {
-    console.log("GREAT Card!!");
-  })
-  .catch(function(error){
-    console.log(error,"CARD, MOTHAFUCKAAAA")
-  })
-
+  console.log("req.session.user_id", req.session.user_id)
+    iconScrape.scrapeStuff(req);
+    knex
+    .select("*")
+    .from("cards")
+    //get card_id of card we just created for query
+    .where("user_id", req.session.user_id)
+    .then.
+    res.send(responseObject);
 
   knex('categories')
     .insert({

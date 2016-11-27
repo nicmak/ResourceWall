@@ -2,51 +2,76 @@
 
 require('dotenv').config();
 
-const ENV         = process.env.ENV || "development";
-const knexConfig  = require("../knexfile");
-const knex        = require("knex")(knexConfig[ENV]);
+const ENV = process.env.ENV || "development";
+const knexConfig = require("../knexfile");
+const knex = require("knex")(knexConfig[ENV]);
 
 const request = require('request');
 const fs = require('fs');
 const cheerio = require('cheerio');
-const args = process.argv[2]
+// const args = process.argv[2]
 
 let htmlStuff;
-
-request(args, (error, response, body) => {
-  if (!error && response.statusCode == 200){
-    console.log(body);
-    htmlStuff = body;
-    let $ = cheerio.load(htmlStuff);
-    /// We can query till our hearts content
-    console.log("~~~~~~~~~~~~~~~");
-    console.log("title:", $('title').text()); //.text() gets rid of the HTML tags
-
-    console.log("icon:", $('link[rel="shortcut icon"]').attr('href'));
-    console.log("description:", $('meta[name=description]').attr('content'));
-
-    //grab the appropriate data & write the knex commands to insert it into the DB
+let descriptionOrNote;
+let titleOrUsersTitle;
+let responseObject = {};
 
 
-    knex('cards')
-      .insert({
-        url: null,
-        title: $('title').text(),
-        notes: null,
-        user_id: null
-      })
-      .then(function(response) {
-        console.log("Cheerio, ol' title chap!");
-      })
-      .catch(function(error){
-        console.log(error,"SCRAPE FAILED, MOTHAFUCKAAAA")
-      })
+module.exports = {
+
+  scrapeStuff: function(card) {
+
+    request(card["body"]["url"], (error, response, body) => {
+      if (!error && response.statusCode == 200) {
+        htmlStuff = body;
+        let $ = cheerio.load(htmlStuff);
+        /// We can query till our hearts content
+        console.log("~~~~~~~~~~~~~~~");
+        console.log("title:", $('title').text()); //.text() gets rid of the HTML tags
+        console.log("icon:", $('link[rel="shortcut icon"]').attr('href'));
+        console.log("description:", $('meta[name=description]').attr('content'));
+
+        //grab the appropriate data & write the knex commands to insert it into the DB
+
+        if (card["body"]["title"].trim() === "") {
+          titleOrUsersTitle = $('title').text();
+        } else {
+          titleOrUsersTitle = card["body"]["title"];
+        }
+
+        if(card["body"]["notes"].trim() === ""){
+        descriptionOrNote = $('meta[name=description]').attr('content');
+        }else{
+          descriptionOrNote = card["body"]["notes"];
+        }
+
+        responseObject["url"] = card["body"]["url"];
+        responseObject["title"] = titleOrUsersTitle;
+        responseObject["categories"] = card["body"]["categories"];
+        responseObject["notes"] = descriptionOrNote;
+
+        knex('cards').insert({
+          url: responseObject.url,
+          title: titleOrUsersTitle,
+          notes: descriptionOrNote,
+          user_id: card["session"]["user_id"]
+          // user_id: null,
+          // picture: $('link[rel="shortcut icon"]').attr('href');
+
+        }).then(function(response) {
+          console.log("Cheerio, ol' title chap!");
+        }).catch(function(error) {
+          console.log(error, "SCRAPE FAILED, MOTHAFUCKAAAA")
+        })
+
+
+      }
+    })
+    console.log("+++++++++++++++++++++", responseObject);
+    return responseObject;
   }
-})
-
-
+}
 //TODO: Once we have the data, we can write a simple query to insert the card's info into the database (probably using knex)
-
 
 /* ~~~~~~~~~~~~~~~~~~
 
