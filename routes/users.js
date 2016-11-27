@@ -26,6 +26,7 @@ router.post("/login", (req,res)=>{
 router.post("/cards", (req,res) => {
   console.log("MAKING CARD");
   console.log("session ", req.session)  //right now the issue is that req.session.user_id is undefined...
+  console.log("REQUEST BODY", req.body)
     iconScrape.scrapeStuff(req.body, req.session.user_id, (err, result) => {
       if (err) {
         console.log(err)
