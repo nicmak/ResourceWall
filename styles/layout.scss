@@ -1,19 +1,31 @@
 body {
   background-color: #EEE;
+  padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 
   h1 {
     color: #244751;
   }
 }
 
+body {
+}
+
+.portfolio-item {
+    margin-bottom: 25px;
+}
+
+footer {
+    margin: 50px 0;
+}
+
 #add-url-form {
   background-color: pink;
-  padding: 10px;
+  // padding: 10px;
 }
 
 #popup {
-  margin: 10px;
-  padding: 10px;
+  // margin: 10px;
+  // padding: 10px;
   background-color: green;
 
 }
@@ -28,16 +40,15 @@ body {
 
 }
 
-
-#card-wall {
-  margin: 10px;
+.card-wall {
+  // margin: 10px;
   background-color: grey;
-  padding: 10px;
+  // padding: 10px;
   // opacity: .5;
 }
 
 .card {
-  padding: 5px;
-  margin: 20px;
+  // padding: 5px;
+  // margin: 20px;
   background-color: orange;
 }
