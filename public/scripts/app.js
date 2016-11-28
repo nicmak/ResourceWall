@@ -24,9 +24,11 @@ function createCard(cardData) {
 }
 //-----------------------------------------------
 function renderCards(cards) {
-  // cards.forEach(card => {
-    $("#card-wall").prepend(createCard(cards))
-  // });
+  console.log("cards", cards);
+  cards.forEach(card => {
+    $(".col-md-4").prepend(createCard(cards))
+    console.log(cards);
+  });
 };
 //-----------------------------------------------
 

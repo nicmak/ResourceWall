@@ -25,14 +25,13 @@ router.post("/login", (req,res)=>{
 
 router.post("/cards", (req,res) => {
   console.log("MAKING CARD");
-<<<<<<< HEAD
+
   console.log("req.session.user_id", req.session.user_id);
   let response = iconScrape.scrapeStuff(req);
   console.log('hello')
   // knex.select("*").from("cards")  //get card_id of card we just created for query
   // .where("user_id", req.session.user_id)
-  // .then(res.send(responseObject));
-=======
+
   console.log("REQUEST BODY", req.body)
 
     iconScrape.scrapeStuff(req.body, req.session.user_id, (err, result) => {
@@ -61,7 +60,7 @@ router.post("/cards", (req,res) => {
 
     //TODO
     // scrapeStuff function takes req.body, creates card instance in database, is supposed use it to return responseObject to fill view; But is returning empty obj.
->>>>>>> 2f474e23222f916d5ed5cf40e5d41615df1b926f
+
 
   // knex('categories')
   //   .insert({
