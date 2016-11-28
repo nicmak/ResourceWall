@@ -125,7 +125,7 @@ $(document).ready(function() {
      })
      .done(function(response) {
        $('#registration-form').val("");
-       window.location.href="/user";
+       window.location.href="/user/";
      });
     })
 

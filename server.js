@@ -53,20 +53,22 @@ app.get("/", (req, res) => {
 });
 
 app.get("/user", (req, res) =>{
+  let user = res.session;
+  console.log("*********************************", user);
   res.render("index");
 })
 
-// app.get("/user/:id", (req, res) => {
-//   let userid = req.params.id;
-//   let cards ={};
-//   knex('cards')
-//   .select("*")
-//   .where("user_id", userid)
-//   .then( (results) => {
-//     cards = results;
-//   })
-//   res.render("index", {cards: cards});
-// })
+app.get("/user/:id", (req, res) => {
+  let userid = req.params.id;
+  let cards ={};
+  knex('cards')
+  .select("*")
+  .where("user_id", userid)
+  .then( (results) => {
+    cards = results;
+  })
+  res.render("index", {cards: cards});
+})
 
 // app.post("registration", (req, res) => {
 //   res.redirect("/users");
