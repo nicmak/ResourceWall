@@ -50,6 +50,14 @@ $(document).ready(function() {
     $("#popup").slideToggle();
   })
 
+  $("#logout-form").click(function(event){
+    event.preventDefault();
+    $.ajax({
+      url:"api/users/logout",
+      method:"POST"
+    })
+  })
+
   $("#login-form").on("submit", function(event) {
     console.log("event",event);
     let email = ($("#email-login").val());

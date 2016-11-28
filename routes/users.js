@@ -41,6 +41,12 @@ router.post("/registration", (req, res) => {
     })
  });
 
+router.post("/logout", (req,res) => {
+  req.session = null
+  res.redirect = "/user"
+  console.log("you logged out");
+})
+
 router.post("/login", (req,res)=>{
     console.log("email is",req.body.email)
     console.log("Password is",req.body.password)
