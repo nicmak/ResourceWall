@@ -49,6 +49,7 @@ module.exports = {
         responseObject["categories"] = card["categories"];
         responseObject["notes"] = descriptionOrNote;
 
+        console.log("Category is",card["categories"])
         knex('cards')
         .returning("id")
         .insert({
@@ -60,13 +61,38 @@ module.exports = {
           // picture: $('link[rel="shortcut icon"]').attr('href');
         })
         .then(function(response) {
+          let card_id = response[0]
           console.log("Cheerio, ol' title chap!");
           cb(null, response)
+
+              knex('categories')
+              .returning("id")
+              .insert({
+                category_name: card["categories"],
+                card_id : card_id
+              })
+              .then(function(catResponse) {
+                console.log("catReponse",catResponse)
+                knex("cards_categories")
+                .insert({
+                  card_id: card_id,
+                  category_id: catResponse[0]
+                })
+                .then(function(card_catResponse){
+                  console.log("cards_Cat Response made")
+                })
+                .catch(function(card_CatResponse) {
+                  console.log("Cards_cat not good")
+                })
+                console.log("Added Category into cat table")
+              })
+              .catch(function(catResponse){
+                console.log("You did not add Cateogry in the cat table")
+              })
         })
         .catch(function(error) {
           console.log(error, "SCRAPE FAILED, MOTHAFUCKAAAA")
         })
-
       }
     })
     console.log("+++++++++++++++++++++", responseObject);

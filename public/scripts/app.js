@@ -5,21 +5,26 @@ function createCard(cardData) {
   const notesText = cardData.notes;
 
   let html = `<article class="col-md-4 card">
+=======
+  let html = `<div class="card">
     <h1> CARD~~~ </h1>
     <p> URL: ${urlText} </p>
     <p> Categories: ${categoriesText} </p>
     <p> Title: ${titleText} <p>
     <p> Notes: ${notesText} </p>
     <p> Likes
-      <button id="like-card" type="like-value" value="like-value">LIKE</button>
+      <button id="like-card" type="button" value="like-value">LIKE</button>
     </p>
     <p> Ratings
       <div class="rating">
         <span>☆☆☆☆☆</span>
       </div>
     </p>
-    <p> Comments~~~~ </p>
-    </article>`
+    <div> Comments~~~~
+       <textarea id="comments" placeholder="comments"></textarea>
+       <input type="submit" value="submit">
+     </div>
+    </div>`
     return html;
 }
 //-----------------------------------------------
@@ -30,18 +35,19 @@ function renderCards(cards) {
   // });
 
 };
+
+/**/
+//function loadCards() {
+//   $.ajax({
+//     url:"/cards",
+//     method: "GET",
+//     success: function(response){
+//       console.log(response);
+//     }
+//   })
+// };
 //-----------------------------------------------
 
-function loadCards() {
-  $.ajax({
-    url:"/cards",
-    method: "GET",
-    success: function(response){
-      console.log(response);
-    }
-  })
-};
-//-----------------------------------------------
 
 $(document).ready(function() {
   $("#add-url-btn").click(function(event) {
@@ -49,14 +55,13 @@ $(document).ready(function() {
     $("#popup").slideToggle();
   })
 
-  $("#like-card").on("like-value", function(event) {
+  $("#logout-form").click(function(event){
     event.preventDefault();
-    console.log("app.js was liked card")
     $.ajax({
-      url:"api/users/cards",
+      url:"api/users/logout",
       method:"POST"
-    });
-  });
+    })
+  })
 
   $("#login-form").on("submit", function(event) {
     console.log("event",event);
@@ -64,7 +69,7 @@ $(document).ready(function() {
     let password=($("#password-login").val());
     event.preventDefault();
     $.ajax({
-      url:"api/users/lo",
+      url:"api/users/login",
       method:"POST",
       data: {
         email: email,
@@ -72,9 +77,13 @@ $(document).ready(function() {
       }
     })
     .done(function (response) {
+<<<<<<< HEAD
       console.log("Congrats you logged in")
+=======
+      console.log("Congrarts you logged in")
+      window.location.href="/user";
+>>>>>>> 3a622abad46c6dd24ced29c6edd601fcefe327b0
     })
-
   })
 
 
@@ -98,8 +107,20 @@ $(document).ready(function() {
     });
    })
 
-   $("#registration-form").on('submit', function(event) {
+  //  $("#comments").on("submit", function (event) {
+  //    event.preventDefault();
+  //    console.log("Commented")
+  //  });
+   $("#like-card").on("click", function(event) {
+     console.log("app.js was liked card");
+   })
 
+  //    // $.ajax({
+  //    //   url:"api/users/like",
+  //    //   method:"POST"
+  //    // });
+
+   $("#registration-form").on('submit', function(event) {
      event.preventDefault();
      $.ajax({
        url:"/api/users/registration",
@@ -114,7 +135,6 @@ $(document).ready(function() {
      .done(function(response) {
        $('#registration-form').val("");
        window.location.href="/user";
-
      });
     })
 
