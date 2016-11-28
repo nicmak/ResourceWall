@@ -4,7 +4,7 @@ function createCard(cardData) {
   const titleText = cardData.title;
   const notesText = cardData.notes;
 
-  let html = `<article class="card">
+  let html = `<article class="col-md-4 card">
     <h1> CARD~~~ </h1>
     <p> URL: ${urlText} </p>
     <p> Categories: ${categoriesText} </p>
@@ -15,7 +15,7 @@ function createCard(cardData) {
     </p>
     <p> Ratings
       <div class="rating">
-        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+        <span>☆☆☆☆☆</span>
       </div>
     </p>
     <p> Comments~~~~ </p>
@@ -24,9 +24,11 @@ function createCard(cardData) {
 }
 //-----------------------------------------------
 function renderCards(cards) {
+  console.log("cards goes herrreeee -->", cards)
   // cards.forEach(card => {
     $("#card-wall").prepend(createCard(cards))
   // });
+
 };
 //-----------------------------------------------
 
@@ -70,7 +72,7 @@ $(document).ready(function() {
       }
     })
     .done(function (response) {
-      console.log("Congrarts you logged in")
+      console.log("Congrats you logged in")
     })
 
   })

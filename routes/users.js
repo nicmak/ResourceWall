@@ -25,23 +25,30 @@ router.post("/login", (req,res)=>{
 
 router.post("/cards", (req,res) => {
   console.log("MAKING CARD");
-  console.log("session ", req.session)  //right now the issue is that req.session.user_id is undefined...
   console.log("REQUEST BODY", req.body)
+
     iconScrape.scrapeStuff(req.body, req.session.user_id, (err, result) => {
       if (err) {
         console.log(err)
         return res.json({err: err}).status(500)
       }
       console.log("IconScraping done! Sending finishing response~~~");
+      console.log(result)
 
-      knex
-      .select("*")   //get card_id of card we just created for query
-      .from("cards")
-      .where("user_id", req.session.user_id)
-      .then(function(data){
-        console.log("Sent the response...!", data);
-        res.send(data);
-    })
+      knex('cards')
+      .select("url","title","notes")   //get card_id of card we just created for query
+      .where({id: result[0]})
+      .then(function(card){
+        console.log(card);
+
+      let newCard = {
+        url:card[0].url,
+        title:card[0].title,
+        notes:card[0].notes,
+        categories:null
+      }
+      res.json(newCard)
+      })
   });
 
     //TODO

@@ -1,54 +1,9 @@
-body {
-  background-color: #EEE;
-  padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-
-  h1 {
-    color: #244751;
-  }
+div .col-md-4 {
+  border: solid grey 1px;
+  background-color: rgba(99, 58, 55, 0.06);
+  margin: 0px, 5px;
 }
 
-body {
-}
-
-.portfolio-item {
-    margin-bottom: 25px;
-}
-
-footer {
-    margin: 50px 0;
-}
-
-#add-url-form {
-  background-color: pink;
-  // padding: 10px;
-}
-
-#popup {
-  // margin: 10px;
-  // padding: 10px;
-  background-color: green;
-
-}
-
-#nav-bar {
-  background-color: yellow;
-  height: 50px;
-  // position: fixed;
-}
-
-#add-url-button {
-
-}
-
-.card-wall {
-  // margin: 10px;
-  background-color: grey;
-  // padding: 10px;
-  // opacity: .5;
-}
-
-.card {
-  // padding: 5px;
-  // margin: 20px;
-  background-color: orange;
+div .col-md-4 h3 {
+  text-align: center;
 }
