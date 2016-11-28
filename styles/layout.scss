@@ -1,43 +1,92 @@
 body {
-  background-color: #EEE;
-
-  h1 {
-    color: #244751;
-  }
-}
-
-#add-url-form {
-  background-color: pink;
-  padding: 10px;
+  background-color: rgba(#a900f9, 0.05);
 }
 
 #popup {
-  margin: 10px;
-  padding: 10px;
-  background-color: green;
+  display: none;
 
+  h1 {
+    // color: #244751;
+    margin-left: auto;
+  }
+}
+
+h1 {
+  margin-left: 10px;
+}
+
+h2 {
+  margin-left: 10px;
+}
+
+#add-url-form {
+  display: inline-block;
+  background-color: rgba(109, 117, 117, 0.14);
+  padding: 20px 10px;
+  border-radius: 5px;
+  margin: 10px 100px 10px 10px;
+  opacity: 0.8;
+}
+#add-url-form:hover {
+  opacity: 1;
+}
+
+textarea {
+  opacity: 0.8;
+}
+textarea:hover {
+  opacity: 1;
+}
+#add-url-btn {
+  margin-top: 50px;
+  display: block;
+  font-size: 350%;
+  width: 70px;
+  border-radius: 50%;
+  border: 1px dotted white;
+  margin-left: 10px;
+  opacity: 0.7;
+}
+#add-url-btn:hover {
+  opacity: 1;
 }
 
 #nav-bar {
+  display: flex;
   background-color: yellow;
-  height: 50px;
-  // position: fixed;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+  margin-bottom: 20px;
+  font-family: dosis;
+  z-index: 4;
+  background-color: rgba(81, 39, 134, 0.55);
 }
 
 #add-url-button {
-
+  border-radius: 15px;
 }
 
-
 #card-wall {
+  display: inline-flex;
   margin: 10px;
-  background-color: grey;
+  background-color: rgba(109, 117, 117, 0.14);
   padding: 10px;
-  // opacity: .5;
+  flex-wrap: wrap;
+  border-radius: 4px;
+  justify-content: space-between;
 }
 
 .card {
-  padding: 5px;
-  margin: 20px;
-  background-color: orange;
+  font-family: dosis;
+  font-color: black;
+  flex: 3;
+  padding: 15px;
+  margin: 4px;
+  background-color: rgba(6, 45, 247, 0.14);
+  border-radius: 15px;
+  opacity: 0.7;
+}
+.card:hover {
+  opacity: 1;
 }

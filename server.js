@@ -52,10 +52,21 @@ app.get("/", (req, res) => {
   res.render("front-page");
 });
 
-app.get("/user", (req, res) => {
-
+app.get("/user", (req, res) =>{
   res.render("index");
 })
+
+// app.get("/user/:id", (req, res) => {
+//   let userid = req.params.id;
+//   let cards ={};
+//   knex('cards')
+//   .select("*")
+//   .where("user_id", userid)
+//   .then( (results) => {
+//     cards = results;
+//   })
+//   res.render("index", {cards: cards});
+// })
 
 // app.post("registration", (req, res) => {
 //   res.redirect("/users");
