@@ -2,6 +2,8 @@ ResourceWall
 
 In-progress project, where it will be able to look for description, title, and image tags from HTML sources from URLs that have been inputted into the application. 
 
+Javascript with JQuery, along with PostgreSQL were implemented.
+
 ## Project Setup
 
 1. Create your own empty repo on GitHub
