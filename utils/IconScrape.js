@@ -90,7 +90,7 @@ module.exports = {
               })
         })
         .catch(function(error) {
-          console.log(error, "SCRAPE FAILED, MOTHAFUCKAAAA")
+          console.log(error, "SCRAPE FAILED")
         })
       }
     })
